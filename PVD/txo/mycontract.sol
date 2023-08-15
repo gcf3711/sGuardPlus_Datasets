@@ -1,11 +1,11 @@
 /*
  * @source: https://consensys.github.io/smart-contract-best-practices/recommendations/#avoid-using-txorigin
- * @author: Consensys Diligence  
+ * @author: Consensys Diligence
+ * @vulnerable_at_lines: 20
  * Modified by Gerhard Wagner
- * @Labeled: [19]
  */
 
-pragma solidity 0.4.26;
+pragma solidity ^0.4.24;
 
 contract MyContract {
 
@@ -16,6 +16,7 @@ contract MyContract {
     }
 
     function sendTo(address receiver, uint amount) public {
+        // <yes> <report> ACCESS_CONTROL
         require(tx.origin == owner);
         receiver.transfer(amount);
     }
